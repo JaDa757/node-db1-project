@@ -3,7 +3,6 @@ const md = require('./accounts-middleware')
 const Account = require('./accounts-model')
 
 
-
 router.get('/', async (req, res, next) => {
   try {
     const accounts = await Account.getAll()
@@ -13,13 +12,8 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', md.checkAccountId, async (req, res, next) => {
-  try {
-    const accounts = await Account.getById(req.params.id)
-    res.json(accounts)
-  } catch (err) {
-    next(err)
-  }
+router.get('/:id', md.checkAccountId, (req, res, next) => {
+  res.json(req.account)
 })
 
 router.post('/',
